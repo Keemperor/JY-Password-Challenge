@@ -3,18 +3,31 @@
 // Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
 
-var number = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
-var specialChar = ["!", "%", "&", ",", "*", "+", "-", ".", "/", "<", ">", "?","~"];
-var alphaLower = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
-var alphaUpper = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+function getRandomLower(){
+  return String.fromCharCode(Math.floor(Math.random() * 26) + 97);
+}
+
+function getRandomUpper(){
+  return String.fromCharCode(Math.floor(Math.random() * 26) + 65);
+}
+
+function getRandomNumber(){
+  return String.fromCharCode(Math.floor(Math.random() * 10) + 48);
+}
+
+function getRandomSymbol(){
+  const symbols = '~!@#$%^&*()_+{}<>,.][?|'
+  return symbols[Math.floor(Math.random() * symbols.length)];
+}
 
 var confirmLength = "";
-var confirmSpecialCharacter;
-var confirmNumericCharacter;
+var confirmSymbols;
+var confirmNumbers;
 var confirmUpperCase;
 var confirmLowerCase;
 
 function generatePassword() {
+
   var confirmLength = (prompt("How many characters would you like your password to contain?"));
 
   // Loop if answer is outside the parameters 
@@ -27,36 +40,43 @@ function generatePassword() {
       alert(`Your password will have ${confirmLength} characters`);
 
     // Determine parameters of password 
-    var confirmSpecialCharacter = confirm("Click OK to confirm if you would like to include special characters");
-    var confirmNumericCharacter = confirm("Click OK to confirm if you would like to include numeric characters");    
-    var confirmLowerCase = confirm("Click OK to confirm if you would like to include lowercase characters");
-    var confirmUpperCase = confirm("Click OK to confirm if you would like to include uppercase characters");
+    var confirmSymbols = confirm("Click OK to confirm if you would like to add symbols");
+    var confirmNumbers = confirm("Click OK to confirm if you would like to add numbers");    
+    var confirmLowerCase = confirm("Click OK to confirm if you would like to add lowercase letters");
+    var confirmUpperCase = confirm("Click OK to confirm if you would like to add uppercase letters");
+
       // Loop if answer is outside the parameters 
-      while(confirmUpperCase === false && confirmLowerCase === false && confirmSpecialCharacter === false && confirmNumericCharacter === false) {
+      while(confirmUpperCase === false && confirmLowerCase === false && confirmSymbols === false && confirmNumbers === false) {
         alert("You must choose at least one parameter");
-        var confirmSpecialCharacter = confirm("Click OK to confirm if you would like to include special characters");
-        var confirmNumericCharacter = confirm("Click OK to confirm if you would like to include numeric characters");    
-        var confirmLowerCase = confirm("Click OK to confirm if you would like to include lowercase characters");
-        var confirmUpperCase = confirm("Click OK to confirm if you would like to include uppercase characters");   
+        var confirmSymbols = confirm("Click OK to confirm if you would like to add symbols");
+        var confirmNumbers = confirm("Click OK to confirm if you would like to add numbers");    
+        var confirmLowerCase = confirm("Click OK to confirm if you would like to add lowercase letters");
+        var confirmUpperCase = confirm("Click OK to confirm if you would like to add uppercase letters");   
     } 
 
-      // Assign an action to the password parameters NEED TO FIX THIS
+      // Assign an action to the password parameters
       var passwordCharacters = []
-      
-    if (confirmSpecialCharacter) {
-      passwordCharacters = passwordCharacters.concat(specialChar)
-    }
+    
+      //loop through random functions and add characters
+    for(let i = 0; i < confirmLength; i ++){
 
-    if (confirmNumericCharacter) {
-      passwordCharacters = passwordCharacters.concat(number)
-    }
-      
-    if (confirmLowerCase) {
-      passwordCharacters = passwordCharacters.concat(alphaLower)
-    }
+      if (confirmSymbols) {
+        // passwordCharacters = passwordCharacters.concat(Symbols)
+         passwordCharacters = passwordCharacters.concat(getRandomSymbol());
+       }
+   
+       if (confirmNumbers) {
+         passwordCharacters = passwordCharacters.concat(getRandomNumber());
+       }
+         
+       if (confirmLowerCase) {
+         passwordCharacters = passwordCharacters.concat(getRandomLower());
+       }
+   
+       if (confirmUpperCase) {
+         passwordCharacters = passwordCharacters.concat(getRandomUpper());
+       }
 
-    if (confirmUpperCase) {
-      passwordCharacters = passwordCharacters.concat(alphaUpper)
     }
 
       console.log(passwordCharacters)
