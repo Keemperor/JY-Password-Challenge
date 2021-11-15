@@ -61,7 +61,6 @@ function generatePassword() {
     for(let i = 0; i < confirmLength; i ++){
 
       if (confirmSymbols) {
-        // passwordCharacters = passwordCharacters.concat(Symbols)
          passwordCharacters = passwordCharacters.concat(getRandomSymbol());
        }
    
